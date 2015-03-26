@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CurrentWeather">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/main_activity_background"
+        android:scaleType="centerCrop"
+        android:id="@+id/background_image"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:alpha="0.7"
+        android:background="@drawable/custom_details_layout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="10dp"
+            android:text="@string/info"
+            android:textStyle="italic|bold"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:id="@+id/fill_location" />
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:cursorVisible="true"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:text=""
+            android:ems="10"
+            android:imeOptions="actionGo"
+            android:inputType="textAutoComplete|textAutoCorrect"
+            android:id="@+id/autoCompleteTextView"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/background"
+        android:src="@drawable/clouds"
+        android:scaleType="centerCrop"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/relativeLayout1">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/image_location"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/icon_location"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Bloomington, IN"
+            android:id="@+id/text_cityname"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/image_location"
+            android:layout_toEndOf="@+id/image_location"
+            android:layout_marginLeft="14dp"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:textSize="22dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="United States"
+            android:id="@+id/text_country_name"
+            android:layout_below="@+id/text_cityname"
+            android:layout_alignLeft="@+id/text_cityname"
+            android:layout_alignStart="@+id/text_cityname"
+            android:textColor="#ffffff"
+            android:textStyle="italic|bold"
+            android:textSize="17dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="3dp"
+            android:id="@+id/image_description"
+            android:src="@drawable/icon_clear_sky_day"
+            android:layout_marginLeft="3dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Dark Clouds"
+            android:textSize="20sp"
+            android:id="@+id/text_description"
+            android:layout_toRightOf="@+id/image_description"
+            android:layout_toEndOf="@+id/image_description"
+            android:textColor="#ffffff"
+            android:textStyle="bold|italic"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:textSize="20sp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="WindChill: "
+            android:textColor="#ffffff"
+            android:textStyle="bold|italic"
+            android:id="@+id/text_windchill"
+            android:layout_below="@+id/text_description"
+            android:layout_alignLeft="@+id/text_description"
+            android:layout_alignStart="@+id/text_description" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/background"
+        android:layout_alignStart="@+id/background"
+        android:id="@+id/relativeLayout3">
+
+        <ViewFlipper
+            android:id="@+id/view_flipper_pressure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:clickable="true"
+                android:background="@drawable/circular_design_layout"
+                android:id="@+id/relativeLayout_circle1_image">
+
+                <ImageView
+                    android:id="@+id/image_pressure"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/icon_pressure"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:clickable="true"
+                android:background="@drawable/circular_design_layout"
+                android:alpha="0.7"
+                android:id="@+id/relativeLayout_circle1_value">
+
+                <TextView
+                    android:id="@+id/text_value_pressure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1234 hPa"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#ffffff"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"/>
+            </RelativeLayout>
+        </ViewFlipper>
+
+        <ViewFlipper
+            android:id="@+id/view_flipper_humidity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginLeft="125dp"
+                android:layout_marginRight="5dp"
+                android:clickable="true"
+                android:background="@drawable/circular_design_layout"
+                android:id="@+id/relativeLayout_circle2_image">
+
+                <ImageView
+                    android:id="@+id/image_humidity"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/icon_humidity"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginLeft="125dp"
+                android:layout_marginRight="5dp"
+                android:clickable="true"
+                android:background="@drawable/circular_design_layout"
+                android:id="@+id/relativeLayout_circle2_value"
+                android:alpha="0.7">
+
+                <TextView
+                    android:id="@+id/text_value_humidity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="54 %"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#ffffff"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"/>
+            </RelativeLayout>
+        </ViewFlipper>
+
+        <ViewFlipper
+            android:id="@+id/view_flipper_wind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginLeft="245dp"
+                android:layout_marginRight="5dp"
+                android:clickable="true"
+                android:background="@drawable/circular_design_layout"
+                android:id="@+id/relativeLayout_circle3_image">
+
+                <ImageView
+                    android:id="@+id/image_wind"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/icon_wind"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginLeft="245dp"
+                android:layout_marginRight="5dp"
+                android:clickable="true"
+                android:background="@drawable/circular_design_layout"
+                android:id="@+id/relativeLayout_circle3_value"
+                android:alpha="0.7">
+
+                <TextView
+                    android:id="@+id/text_value_wind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="23 mps"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#ffffff"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"/>
+            </RelativeLayout>
+        </ViewFlipper>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout4"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_above="@+id/relativeLayout3"
+        android:layout_alignLeft="@+id/relativeLayout2"
+        android:layout_alignStart="@+id/relativeLayout2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Pressure"
+            android:id="@+id/text_heading_pressure"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="22dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Humidity"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:id="@+id/text_heading_humidity"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/text_heading_pressure"
+            android:layout_toEndOf="@+id/text_heading_pressure" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="75dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Wind"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:id="@+id/text_heading_wind"
+            android:layout_alignBottom="@+id/text_heading_humidity"
+            android:layout_toRightOf="@+id/text_heading_humidity"
+            android:layout_toEndOf="@+id/text_heading_humidity" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout5"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_above="@+id/relativeLayout4"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="45dp">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:id="@+id/image_temperature"
+            android:src="@drawable/icon_temperature"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="23C"
+            android:id="@+id/text_value_temperature"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:textSize="70sp"
+            android:textColor="#ffffff"
+            android:layout_toRightOf="@+id/image_temperature"
+            android:layout_toEndOf="@+id/image_temperature" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.6"
+        android:background="@drawable/test_relative_layout3"
+        android:layout_above="@+id/relativeLayout5"
+        android:layout_alignParentLeft="true">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:id="@+id/image_max_min"
+            android:src="@drawable/icon_max_min"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="43C"
+            android:gravity="right"
+            android:id="@+id/text_value_max"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/image_max_min"
+            android:layout_toEndOf="@+id/image_max_min" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="20C"
+            android:gravity="right"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:id="@+id/text_value_min"
+            android:layout_below="@+id/text_value_max"
+            android:layout_toRightOf="@+id/image_max_min"
+            android:layout_toEndOf="@+id/image_max_min" />
+    </RelativeLayout>
+</RelativeLayout>
