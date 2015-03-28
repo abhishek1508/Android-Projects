@@ -46,4 +46,8 @@ public class ParseJson {
     public String getArrayJSON(JSONObject json, String str1, String str2) throws JSONException {
         return json.getJSONArray(str1).getJSONObject(0).getString(str2);
     }
+
+    public int getArrayJSONInt(JSONObject json, String str1, String str2) throws JSONException {
+        return json.getJSONArray(str1).getJSONObject(0).getInt(str2);
+    }
 }

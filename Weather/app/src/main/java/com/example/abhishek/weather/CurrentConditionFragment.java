@@ -19,7 +19,9 @@ import android.widget.ViewFlipper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by ABHISHEK on 18-03-2015.
@@ -29,8 +31,9 @@ public class CurrentConditionFragment extends Fragment implements View.OnClickLi
     ViewFlipper mVFlipper_press, mVFlipper_humid, mVFlipper_wind;
     RelativeLayout mPressImage, mPressValue, mHumidImage, mHumidValue, mWindImage, mWindValue;
     TextView mCityName, mCountryName, mWeatherDesc, mWindChill, mPressureVal, mHumidityVal, mWindVal, mTempVal, mMaxVal, mMinVal;
-    ImageView mBackground;
+    ImageView mBackground, mImageDescription;
     View view;
+
     private ArrayList<JSONObject> mListJsonCurrent = WeatherConditionsActivity.mListJson;
     private JSONObject mJsonCurrent = null;
     private String mCityEntered = null;
@@ -66,6 +69,7 @@ public class CurrentConditionFragment extends Fragment implements View.OnClickLi
         mMaxVal = (TextView) view.findViewById(R.id.text_value_max);
         mMinVal = (TextView) view.findViewById(R.id.text_value_min);
         mBackground = (ImageView) view.findViewById(R.id.background);
+        mImageDescription = (ImageView) view.findViewById(R.id.image_description);
 
         initialize();
         fill_values();
@@ -148,6 +152,9 @@ public class CurrentConditionFragment extends Fragment implements View.OnClickLi
                 else
                     mCountryName.setText(mFillCountry);
 
+                int image_id = mParse.getArrayJSONInt(mJsonCurrent, "weather", "id");
+                add_images(image_id);
+
                 /*Set the weather description for current conditions in the city*/
                 mWeatherDesc.setText((mParse.getArrayJSON(mJsonCurrent,"weather","description")).toUpperCase());
 
@@ -180,4 +187,62 @@ public class CurrentConditionFragment extends Fragment implements View.OnClickLi
 
     }
 
+    private void add_images(int image_id) {
+        switch (image_id) {
+            case 201:
+            case 210:
+            case 211:
+            case 212:
+                mImageDescription.setImageResource(R.drawable.icon_thunderstorms);
+                break;
+            case 500:
+                mImageDescription.setImageResource(R.drawable.icon_light_rain);
+                break;
+            case 501:
+                mImageDescription.setImageResource(R.drawable.icon_moderate_rain);
+                break;
+            case 502:
+            case 511:
+                mImageDescription.setImageResource(R.drawable.icon_heavy_intnsity_rain);
+                break;
+            case 600:
+            case 601:
+            case 602:
+                mImageDescription.setImageResource(R.drawable.icon_snow);
+                break;
+            case 615:
+            case 616:
+                mImageDescription.setImageResource(R.drawable.icon_rain_and_snow);
+                break;
+            case 721:
+            case 761:
+                mImageDescription.setImageResource(R.drawable.icon_dust);
+                break;
+            case 741:
+                mImageDescription.setImageResource(R.drawable.icon_fog);
+                break;
+            case 781:
+                mImageDescription.setImageResource(R.drawable.icon_tornado);
+                break;
+            case 800:
+                mImageDescription.setImageResource(R.drawable.icon_clear_sky_day);
+                break;
+            case 801:
+                mImageDescription.setImageResource(R.drawable.icon_few_clouds);
+                break;
+            case 802:
+                mImageDescription.setImageResource(R.drawable.icon_scattered_clouds);
+                break;
+            case 803:
+                mImageDescription.setImageResource(R.drawable.icon_broken_clouds);
+                break;
+            case 804:
+                mImageDescription.setImageResource(R.drawable.icon_overcast_clouds);
+                break;
+            default:
+                mImageDescription.setImageResource(R.drawable.icon_clear_sky_day);
+                break;
+
+        }
+    }
 }

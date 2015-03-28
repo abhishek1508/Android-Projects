@@ -118,6 +118,12 @@ public class DailyForecastFragment extends Fragment {
     private void add_images(int image_id, int position){
 
         switch(image_id){
+            case 201:
+            case 210:
+            case 211:
+            case 212:
+                images[position] = R.drawable.icon_thunderstorms;
+                break;
             case 500:
                 images[position] = R.drawable.icon_light_rain;
                 break;
@@ -125,7 +131,42 @@ public class DailyForecastFragment extends Fragment {
                 images[position] = R.drawable.icon_moderate_rain;
                 break;
             case 502:
+            case 511:
                 images[position] = R.drawable.icon_heavy_intnsity_rain;
+                break;
+            case 600:
+            case 601:
+            case 602:
+                images[position] = R.drawable.icon_snow;
+                break;
+            case 615:
+            case 616:
+                images[position] = R.drawable.icon_rain_and_snow;
+                break;
+            case 721:
+            case 761:
+                images[position] = R.drawable.icon_dust;
+                break;
+            case 741:
+                images[position] = R.drawable.icon_fog;
+                break;
+            case 781:
+                images[position] = R.drawable.icon_tornado;
+                break;
+            case 800:
+                images[position] = R.drawable.icon_clear_sky_day;
+                break;
+            case 801:
+                images[position] = R.drawable.icon_few_clouds;
+                break;
+            case 802:
+                images[position] = R.drawable.icon_scattered_clouds;
+                break;
+            case 803:
+                images[position] = R.drawable.icon_broken_clouds;
+                break;
+            case 804:
+                images[position] = R.drawable.icon_overcast_clouds;
                 break;
             default:
                 images[position] = R.drawable.icon_clear_sky_day;
