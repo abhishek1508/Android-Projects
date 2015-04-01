@@ -6,11 +6,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/background"
-        android:src="@drawable/clouds"
+        android:src="@drawable/background_overcast_clouds"
         android:scaleType="centerCrop"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:alpha="0.6"/>
 
 
     <ListView

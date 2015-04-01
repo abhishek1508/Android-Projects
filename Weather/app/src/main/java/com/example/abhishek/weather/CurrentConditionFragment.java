@@ -1,8 +1,9 @@
 package com.example.abhishek.weather;
 
-import android.graphics.Point;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Display;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -19,9 +19,7 @@ import android.widget.ViewFlipper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by ABHISHEK on 18-03-2015.
@@ -30,7 +28,7 @@ public class CurrentConditionFragment extends Fragment implements View.OnClickLi
 
     ViewFlipper mVFlipper_press, mVFlipper_humid, mVFlipper_wind;
     RelativeLayout mPressImage, mPressValue, mHumidImage, mHumidValue, mWindImage, mWindValue;
-    TextView mCityName, mCountryName, mWeatherDesc, mWindChill, mPressureVal, mHumidityVal, mWindVal, mTempVal, mMaxVal, mMinVal;
+    TextView mCityName, mCountryName, mWeatherDesc, mPressureVal, mHumidityVal, mWindVal, mTempVal, mMaxVal, mMinVal;
     ImageView mBackground, mImageDescription;
     View view;
 
@@ -40,10 +38,14 @@ public class CurrentConditionFragment extends Fragment implements View.OnClickLi
     private ParseJson mParse = null;
     private CountryAbbreviation mAbbreviate = null;
     private String mDebug = CurrentConditionFragment.class.getName();
+    private final int mTo_mph = 3600;
+    private AddImages mAddImage = null;
+    public static int mIdImage = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.layout_current_condition_fragment, container, false);
+
 
         /*initializing the variables to implement view flipper for 3 circles
          * visible in the UI shown by pressure, humidity and wind.*/
@@ -61,7 +63,6 @@ public class CurrentConditionFragment extends Fragment implements View.OnClickLi
         mCityName = (TextView) view.findViewById(R.id.text_cityname);
         mCountryName = (TextView) view.findViewById(R.id.text_country_name);
         mWeatherDesc = (TextView) view.findViewById(R.id.text_description);
-        mWindChill = (TextView) view.findViewById(R.id.text_windchill);
         mPressureVal = (TextView) view.findViewById(R.id.text_value_pressure);
         mHumidityVal = (TextView) view.findViewById(R.id.text_value_humidity);
         mWindVal = (TextView) view.findViewById(R.id.text_value_wind);
@@ -78,6 +79,8 @@ public class CurrentConditionFragment extends Fragment implements View.OnClickLi
 
     private void initialize(){
 
+        /*mAddImage = new AddImages(getResources(),mBackground);*/
+        mAddImage = new AddImages(getResources(),mBackground);
         /* The list contains all the results for current weather conditions,
          * hourly weather forecast and daily weather forecast.
          * The first one being current weather conditions with index being 0*/
@@ -152,8 +155,10 @@ public class CurrentConditionFragment extends Fragment implements View.OnClickLi
                 else
                     mCountryName.setText(mFillCountry);
 
-                int image_id = mParse.getArrayJSONInt(mJsonCurrent, "weather", "id");
-                add_images(image_id);
+                /*Set the weather description icon for current conditions in the city*/
+                mIdImage = mParse.getArrayJSONInt(mJsonCurrent, "weather", "id");
+                if(mAddImage != null)
+                    mAddImage.add_images(mIdImage);
 
                 /*Set the weather description for current conditions in the city*/
                 mWeatherDesc.setText((mParse.getArrayJSON(mJsonCurrent,"weather","description")).toUpperCase());
@@ -187,62 +192,4 @@ public class CurrentConditionFragment extends Fragment implements View.OnClickLi
 
     }
 
-    private void add_images(int image_id) {
-        switch (image_id) {
-            case 201:
-            case 210:
-            case 211:
-            case 212:
-                mImageDescription.setImageResource(R.drawable.icon_thunderstorms);
-                break;
-            case 500:
-                mImageDescription.setImageResource(R.drawable.icon_light_rain);
-                break;
-            case 501:
-                mImageDescription.setImageResource(R.drawable.icon_moderate_rain);
-                break;
-            case 502:
-            case 511:
-                mImageDescription.setImageResource(R.drawable.icon_heavy_intnsity_rain);
-                break;
-            case 600:
-            case 601:
-            case 602:
-                mImageDescription.setImageResource(R.drawable.icon_snow);
-                break;
-            case 615:
-            case 616:
-                mImageDescription.setImageResource(R.drawable.icon_rain_and_snow);
-                break;
-            case 721:
-            case 761:
-                mImageDescription.setImageResource(R.drawable.icon_dust);
-                break;
-            case 741:
-                mImageDescription.setImageResource(R.drawable.icon_fog);
-                break;
-            case 781:
-                mImageDescription.setImageResource(R.drawable.icon_tornado);
-                break;
-            case 800:
-                mImageDescription.setImageResource(R.drawable.icon_clear_sky_day);
-                break;
-            case 801:
-                mImageDescription.setImageResource(R.drawable.icon_few_clouds);
-                break;
-            case 802:
-                mImageDescription.setImageResource(R.drawable.icon_scattered_clouds);
-                break;
-            case 803:
-                mImageDescription.setImageResource(R.drawable.icon_broken_clouds);
-                break;
-            case 804:
-                mImageDescription.setImageResource(R.drawable.icon_overcast_clouds);
-                break;
-            default:
-                mImageDescription.setImageResource(R.drawable.icon_clear_sky_day);
-                break;
-
-        }
-    }
 }

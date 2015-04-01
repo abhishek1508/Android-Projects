@@ -1,6 +1,8 @@
 package com.example.abhishek.weather;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,14 +44,17 @@ public class DailyForecastFragment extends Fragment {
     private String[] temperature = null;
     private String[] day_date = null;
     private int[] images = null;
+    private AddImages mAddImage = null;
 
     private ListView mDailyForecastList;
+    private ImageView mImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.layout_daily_forecast_fragment, container, false);
 
         mDailyForecastList = (ListView) view.findViewById(R.id.listView);
+        mImage = (ImageView)view.findViewById(R.id.background);
         initialize();
         fill_values();
 
@@ -61,6 +66,7 @@ public class DailyForecastFragment extends Fragment {
 
     private void initialize(){
 
+        mAddImage = new AddImages(getResources(),mImage);
         /* The list contains all the results for current weather conditions,
          * hourly weather forecast and daily weather forecast.
          * The second one being current weather conditions with index being 1*/
@@ -76,7 +82,10 @@ public class DailyForecastFragment extends Fragment {
             /* Get all the items in the list JSONArray */
             JSONArray mJsonArray = mDailyJson.getJSONArray("list");
             JSONObject temp_mJson = null;
-
+            /*Add background image according to the description id parsed CurrentConditionFragment.
+             * Set the background same as the background of CurrentConditionFragment */
+            int id = CurrentConditionFragment.mIdImage;
+            mAddImage.add_images(id);
             /* Initialize all the String array with length same as the length of JSONArray
              * initialized above. */
             description = new String[mJsonArray.length()];
@@ -117,6 +126,7 @@ public class DailyForecastFragment extends Fragment {
 
     private void add_images(int image_id, int position){
 
+        Bitmap bitmap = null;
         switch(image_id){
             case 201:
             case 210:
