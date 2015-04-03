@@ -85,7 +85,7 @@ public class DailyForecastFragment extends Fragment {
             /*Add background image according to the description id parsed CurrentConditionFragment.
              * Set the background same as the background of CurrentConditionFragment */
             int id = CurrentConditionFragment.mIdImage;
-            mAddImage.add_images(id);
+            mAddImage.add_daily_forecast_images(id);
             /* Initialize all the String array with length same as the length of JSONArray
              * initialized above. */
             description = new String[mJsonArray.length()];

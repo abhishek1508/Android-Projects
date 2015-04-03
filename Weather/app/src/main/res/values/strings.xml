@@ -7,6 +7,7 @@
     <string name="no_city_alert">Enter city name to get weather info</string>
     <string name="large_screen_size">App is unavailable for your tab</string>
     <string name="minimum_maximum">Min/Max</string>
+    <string name="instruction">Swipe Right or Left to view the\nHourly and Daily Forecast </string>
     <string-array name="list_of_cities">
         <!-- Major US cities -->
         <item>New York, New York</item>
@@ -62,7 +63,7 @@
         <item>New Orleans, Louisiana</item>
         <item>Bakersfield, California</item>
         <item>Tampa, Florida</item>
-        <item>Honolulu, Hawaii</item>
+        <item>Honolulu</item>
         <item>Anaheim, California</item>
         <item>Aurora, Colorado</item>
         <item>Santa Ana, California</item>
@@ -362,7 +363,7 @@
         <item>STOCKHOLM, Sweden</item>
         <item>Kraków, Poland</item>
         <item>Valencia, Spain</item>
-        <item>AMSTERDAM, Netherlands</item>
+        <item>Amsterdam, Netherlands</item>
         <item>Leeds, UK</item>
         <item>Tolyatti, Russia</item>
         <item>Kryvy Rig, Ukraine</item>
@@ -471,7 +472,7 @@
         <item>Vitebsk, Belarus</item>
         <item>Kaluga, Russia</item>
         <item>Belgorod, Russia</item>
-        <item>Zürich, Switzerland</item>
+        <item>Zurich, Switzerland</item>
         <item>Simferopol, Ukraine</item>
         <item>Bari, Italy</item>
         <item>Vladimir, Russia</item>

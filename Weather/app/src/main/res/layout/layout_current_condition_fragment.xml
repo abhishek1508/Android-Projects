@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:alpha="0.2">
 
 
     <ImageView
@@ -107,11 +108,6 @@
         android:layout_alignStart="@+id/background"
         android:id="@+id/relativeLayout3">
 
-        <ViewFlipper
-            android:id="@+id/view_flipper_pressure"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <RelativeLayout
                 android:layout_width="110dp"
                 android:layout_height="110dp"
@@ -137,7 +133,8 @@
                 android:clickable="true"
                 android:background="@drawable/circular_design_layout"
                 android:alpha="0.7"
-                android:id="@+id/relativeLayout_circle1_value">
+                android:id="@+id/relativeLayout_circle1_value"
+                android:visibility="invisible">
 
                 <TextView
                     android:id="@+id/text_value_pressure"
@@ -153,12 +150,6 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"/>
             </RelativeLayout>
-        </ViewFlipper>
-
-        <ViewFlipper
-            android:id="@+id/view_flipper_humidity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:layout_width="110dp"
@@ -185,7 +176,8 @@
                 android:clickable="true"
                 android:background="@drawable/circular_design_layout"
                 android:id="@+id/relativeLayout_circle2_value"
-                android:alpha="0.7">
+                android:alpha="0.7"
+                android:visibility="invisible">
 
                 <TextView
                     android:id="@+id/text_value_humidity"
@@ -201,12 +193,6 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"/>
             </RelativeLayout>
-        </ViewFlipper>
-
-        <ViewFlipper
-            android:id="@+id/view_flipper_wind"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:layout_width="110dp"
@@ -233,7 +219,8 @@
                 android:clickable="true"
                 android:background="@drawable/circular_design_layout"
                 android:id="@+id/relativeLayout_circle3_value"
-                android:alpha="0.7">
+                android:alpha="0.7"
+                android:visibility="invisible">
 
                 <TextView
                     android:id="@+id/text_value_wind"
@@ -249,7 +236,6 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"/>
             </RelativeLayout>
-        </ViewFlipper>
 
     </RelativeLayout>
 
@@ -303,85 +289,75 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout5"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_above="@+id/relativeLayout4"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="45dp">
+        android:layout_width="195dp"
+        android:layout_height="195dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/circular_design_layout"
+        android:id="@+id/relativeLayout_temp_symbol"
+        android:alpha="0.6"
+        android:clickable="true">
 
         <ImageView
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:id="@+id/image_temperature"
-            android:src="@drawable/icon_temperature"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="23C"
-            android:id="@+id/text_value_temperature"
+            android:layout_width="110dp"
+            android:layout_height="180dp"
+            android:id="@+id/imageView3"
             android:layout_centerVertical="true"
-            android:textStyle="bold"
-            android:textSize="70sp"
-            android:textColor="#ffffff"
-            android:layout_toRightOf="@+id/image_temperature"
-            android:layout_toEndOf="@+id/image_temperature" />
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_temperature"/>
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout_temp_value"
+        android:layout_width="195dp"
+        android:layout_height="195dp"
+        android:background="@drawable/circular_design_layout"
         android:alpha="0.6"
-        android:background="@drawable/test_relative_layout3"
-        android:layout_above="@+id/relativeLayout5"
-        android:layout_alignParentLeft="true">
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:visibility="invisible">
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="70dp"
-            android:id="@+id/image_max_min"
-            android:src="@drawable/icon_max_min"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="-20C"
+            android:textColor="#ffffff"
+            android:textSize="75sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:id="@+id/text_temp_current_condition_value"
             android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="43C"
-            android:gravity="right"
-            android:id="@+id/text_value_max"
-            android:textSize="18sp"
-            android:textStyle="bold"
             android:textColor="#ffffff"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="-23C"
+            android:id="@+id/text_min_temp_current_condition_value"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/image_max_min"
-            android:layout_toEndOf="@+id/image_max_min" />
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="5dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="20C"
-            android:gravity="right"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
             android:textColor="#ffffff"
-            android:id="@+id/text_value_min"
-            android:layout_below="@+id/text_value_max"
-            android:layout_toRightOf="@+id/image_max_min"
-            android:layout_toEndOf="@+id/image_max_min" />
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="-23C"
+            android:id="@+id/text_max_temp_current_condition_value"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
+
 </RelativeLayout>

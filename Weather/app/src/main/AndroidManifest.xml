@@ -26,6 +26,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".EnterLocation"/>
         </activity>
+        <activity android:name="com.example.abhishek.weather.InstructionsActivity"
+            android:label="Weather"
+            android:parentActivityName=".WeatherConditionsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WeatherConditionsActivity"/>
+            </activity>
     </application>
 
 </manifest>
