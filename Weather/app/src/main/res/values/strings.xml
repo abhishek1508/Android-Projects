@@ -4,10 +4,11 @@
     <string name="app_name">Weather</string>
     <string name="info">Enter your city name</string>
     <string name="action_settings">Settings</string>
-    <string name="no_city_alert">Enter city name to get weather info</string>
+    <string name="no_city_alert">Please enter the name of a city</string>
     <string name="large_screen_size">App is unavailable for your tab</string>
     <string name="minimum_maximum">Min/Max</string>
     <string name="instruction">Swipe Right or Left to view the\nHourly and Daily Forecast </string>
+    <string name="instruction_main_activity">You haven\'t saved any city search yet.\n\nStart saving cities for quick access</string>
     <string-array name="list_of_cities">
         <!-- Major US cities -->
         <item>New York, New York</item>
