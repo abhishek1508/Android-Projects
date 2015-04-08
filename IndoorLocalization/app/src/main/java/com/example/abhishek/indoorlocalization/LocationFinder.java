@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -33,6 +34,10 @@ public class LocationFinder extends ActionBarActivity {
     Bitmap bm = null;
     RoundImage roundedImage;
     int image = R.drawable.background;
+    DatabaseHelperAdapter mDatabaseHelperAdapter;
+    EnterSignsAndLocation mEnterData = null;
+    private String mDebug = LocationFinder.class.getName();
+    private int mNumberOfFloors = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +64,9 @@ public class LocationFinder extends ActionBarActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_GO){
-                    Toast.makeText(LocationFinder.this, mAuto.getText().toString(), Toast.LENGTH_LONG).show();
+                    String mBuildingName = v.getText().toString();
+                    Log.d(mDebug, "Name of the building is: "+mBuildingName);
+                    startLocatorDetailsActivity(mBuildingName,mDatabaseHelperAdapter.getFloorCount(mBuildingName));
                 }
                 return false;
             }
@@ -69,19 +76,29 @@ public class LocationFinder extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView text = (TextView) view.findViewById(R.id.list_building_name);
-                if(text.getText().toString().equalsIgnoreCase("jordan hall")) {
-                    Intent intent = new Intent(LocationFinder.this, LocatorDetailsActivity.class);
-                    intent.putExtra("building_name", text.getText());
-                    startActivity(intent);
-                }
-                else{
-                    Toast.makeText(LocationFinder.this, "Coming Soon", Toast.LENGTH_LONG).show();
-                }
+                String mBuildingName = text.getText().toString();
+                /* Get the number of floors on the basis of building clicked */
+                Log.d(mDebug, "Number of floors in "+mBuildingName+" are: " + mDatabaseHelperAdapter.getFloorCount(mBuildingName));
+                startLocatorDetailsActivity(mBuildingName,mDatabaseHelperAdapter.getFloorCount(mBuildingName));
             }
         });
     }
 
+    private void startLocatorDetailsActivity(String str, int no_of_floors){
+        if(str.equalsIgnoreCase("jordan hall")) {
+            Intent intent = new Intent(LocationFinder.this, LocatorDetailsActivity.class);
+            intent.putExtra("number_of_floors", String.valueOf(no_of_floors));
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(LocationFinder.this, "Coming Soon", Toast.LENGTH_LONG).show();
+        }
+    }
     private void init(){
+        mEnterData = new EnterSignsAndLocation();
+        mEnterData.fill_data();
+        mDatabaseHelperAdapter = DatabaseHelperAdapter.getInstance(this);
+        //dataHelper= new DatabaseHelperAdapter(this);
         mAutoCompleteBuilding = getResources().getStringArray(R.array.all_buildings);
         mBuildings = getResources().getStringArray(R.array.popular_buildings_list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(LocationFinder.this,android.R.layout.simple_list_item_1,mAutoCompleteBuilding);
@@ -116,9 +133,6 @@ public class LocationFinder extends ActionBarActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
-            /*TODO
-            ViewHolder*/
 
             View row = convertView;
             if(row == null) {

@@ -27,6 +27,14 @@
                 android:value=".LocationFinder" />
         </activity>
 
+        <activity android:name="com.example.abhishek.indoorlocalization.FindOnMap"
+            android:label="Indoor Localization"
+            android:parentActivityName=".LocatorDetailsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LocatorDetailsActivity"/>
+        </activity>
+
     </application>
 
 </manifest>

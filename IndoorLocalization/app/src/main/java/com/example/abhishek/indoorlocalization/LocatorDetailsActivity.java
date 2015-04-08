@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 /**
  * Created by ABHISHEK on 14-03-2015.
@@ -18,14 +19,17 @@ public class LocatorDetailsActivity extends ActionBarActivity implements Fragmen
 
     private Handler mHandler = new Handler();
     private boolean isBack = false;
+    public static int number_of_floors;
     private String mBuildingName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.locate_yourself);
+
         Bundle extras = getIntent().getExtras();
-        mBuildingName = extras.getString("building_name");
+        number_of_floors = Integer.parseInt(extras.getString("number_of_floors"));
+
         if(savedInstanceState == null)
             getFragmentManager().beginTransaction().add(R.id.frame_container, new Current_Location()).commit();
 
