@@ -10,6 +10,7 @@
         <activity
             android:name=".LocationFinder"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:icon="@drawable/ic_launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +22,7 @@
         <activity
             android:name="com.example.abhishek.indoorlocalization.LocatorDetailsActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:parentActivityName=".LocationFinder" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -29,6 +31,7 @@
 
         <activity android:name="com.example.abhishek.indoorlocalization.FindOnMap"
             android:label="Indoor Localization"
+            android:screenOrientation="landscape"
             android:parentActivityName=".LocatorDetailsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

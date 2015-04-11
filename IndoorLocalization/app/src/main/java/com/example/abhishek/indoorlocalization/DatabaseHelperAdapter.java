@@ -36,19 +36,20 @@ public class DatabaseHelperAdapter {
         return mInstance;
     }
 
-    public ArrayList<String> getLocation(String mFloorNum, String mSignText) {
+    public String getLocation(String mFloorNum, String mSignText) {
         SQLiteDatabase db2 = helper.getWritableDatabase();
         String[] columns = {helper.LOCATION};
         Cursor cursor = db2.query(helper.TABLE_NAME, columns, helper.FLOOR+" = '"+mFloorNum+"'" + "and " + helper.CURR_SIGN + "= '"+ mSignText+"'", null, null, null, null);
 
         //StringBuffer buffer = new StringBuffer();
-        ArrayList<String> locate = new ArrayList<String>();
+        String locate = "";
         int i=0;
         while(cursor.moveToNext()) {
             int u_id = cursor.getColumnIndex(helper.LOCATION);
-            locate.add(cursor.getString(u_id));
+            locate = cursor.getString(u_id);
 
         }
+
         return locate;
     }
     public Integer getFloorCount(String build_name) {
@@ -65,12 +66,15 @@ public class DatabaseHelperAdapter {
         Cursor cursor = db2.query(true,helper.TABLE_NAME,columns,helper.FLOOR+ " = '"+mFloorNum+"'",null,null,null,null,null);
         String[] signs = new String[cursor.getCount()];
         int i=0;
+        int count = 0;
         while(cursor.moveToNext()){
             int u_id = cursor.getColumnIndex(helper.CURR_SIGN);
             signs[i]=cursor.getString(u_id);
             i++;
-
+            count++;
         }
+        Log.d(mDebug, "The value of count inside getSigns is: "+ count);
+        Log.d(mDebug, "The value of signs inside getSigns is: "+ signs);
         return signs;
     }
 
@@ -78,7 +82,7 @@ public class DatabaseHelperAdapter {
 
         private static final String DATABASE_NAME= "ILSDatabase";
         private static final String TABLE_NAME="ILSTable";
-        private static final int DATABASE_VERSION = 37;
+        private static final int DATABASE_VERSION = 57;
         private static final String BUILD_NAME="build_name";
         private static final String FLOOR="floor";
         private static final String PREV_SIGN="prev_sign";
@@ -86,7 +90,7 @@ public class DatabaseHelperAdapter {
         private static final String NEXT_SIGN="next_sign";
         private static final String LOCATION="_location";
         private static final String CREATE_TABLE="CREATE TABLE "+ TABLE_NAME +" ("+BUILD_NAME+" VARCHAR(50),"+FLOOR+" VARCHAR(50), "+PREV_SIGN+" VARCHAR(50), " +
-                " "+CURR_SIGN+" VARCHAR(50), "+NEXT_SIGN+" VARCHAR(50), "+LOCATION+" VARCHAR(50) PRIMARY KEY);";
+                " "+CURR_SIGN+" VARCHAR(50), "+NEXT_SIGN+" VARCHAR(50), "+LOCATION+" VARCHAR(50));";
         private static final String DROP_TABLE="Drop table IF EXISTS "+ TABLE_NAME;
         private Context context;
 
@@ -107,11 +111,14 @@ public class DatabaseHelperAdapter {
                 for(int i = 0; i < EnterSignsAndLocation.mList.size(); i++){
                     cv.put(DatabaseHelper.BUILD_NAME, "Jordan Hall");
                     cv.put(DatabaseHelper.FLOOR,"Floor "+String.valueOf(i+1));
+                    int count = 0;
                     for(Map.Entry me : EnterSignsAndLocation.mList.get(i).entrySet()){
                         cv.put(DatabaseHelper.CURR_SIGN, String.valueOf(me.getKey()));
                         cv.put(DatabaseHelper.LOCATION,String.valueOf(me.getValue()));
                         insertValues(db, cv);
+                        count++;
                     }
+                    Log.d(mDebug, "The value of count is: "+ count);
                 }
 
             }catch (Exception e){

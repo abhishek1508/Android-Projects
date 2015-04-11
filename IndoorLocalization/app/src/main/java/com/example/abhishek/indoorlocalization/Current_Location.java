@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,15 +36,18 @@ public class Current_Location extends Fragment {
     public String[] mFloorNumber = new String[LocatorDetailsActivity.number_of_floors+1];
     public String[] mListOfSigns;
     private AutoCompleteTextView mSelectSign;
+    private TextView mChooseSignInstruc;
     private Spinner mSelectFloor;
     private RelativeLayout relative;
     private String mDebug = Current_Location.class.getName();
+    private String floor_selected = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_current_location, container, false);
         init();
         mSelectFloor = (Spinner)view.findViewById(R.id.spinner_select_floor);
+        mChooseSignInstruc = (TextView)view.findViewById(R.id.text_choose_sign);
         mSelectSign = (AutoCompleteTextView)view.findViewById(R.id.auto_complete_sign_selection);
         relative = (RelativeLayout)view.findViewById(R.id.relativeLayout_for_select_sign);
 
@@ -59,16 +64,20 @@ public class Current_Location extends Fragment {
                 to select a sign is made visible and the AutoCompleteTextView is populated with
                 signs relevant to the floor selected.
                  */
-                String floor_selected = parent.getItemAtPosition(position).toString();
-                if(!floor_selected .equalsIgnoreCase("Select a Floor")) {
+                floor_selected = parent.getItemAtPosition(position).toString();
+                if(!floor_selected .equalsIgnoreCase("Select a Floor") && !floor_selected .equalsIgnoreCase("")) {
                     relative.setVisibility(View.VISIBLE);
+                    mChooseSignInstruc.setVisibility(View.VISIBLE);
                     DatabaseHelperAdapter mDatabaseHelperAdapter = DatabaseHelperAdapter.getInstance(mContext);
                     mListOfSigns = mDatabaseHelperAdapter.getSigns(floor_selected);
-                    CustomAdapter mAdapter = new CustomAdapter(getActivity(), R.layout.layout_select_sign, R.id.text_select_sign, mListOfSigns);
+                    Log.d(mDebug, "The value of mListOfSigns inside Current_Location is: "+ mListOfSigns);
+                    ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,mListOfSigns);
                     mSelectSign.setAdapter(mAdapter);
                 }
-                else
+                else {
                     relative.setVisibility(View.INVISIBLE);
+                    mChooseSignInstruc.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -102,7 +111,9 @@ public class Current_Location extends Fragment {
                     if(result != 1)
                         Toast.makeText(mContext,"Please select a sign from the list",Toast.LENGTH_LONG).show();
                     else{
+                        String mLocationRetrieved = DatabaseHelperAdapter.getInstance(mContext).getLocation(floor_selected,mSignEntered);
                         Intent intent = new Intent(getActivity(),FindOnMap.class);
+                        intent.putExtra("coordinates",mLocationRetrieved);
                         startActivity(intent);
                     }
 
