@@ -1,9 +1,11 @@
 package com.example.abhishek.weather;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -44,11 +47,13 @@ public class EnterLocation extends ActionBarActivity implements View.OnClickList
     private WindowManager windowManager;
     private String mDebug = EnterLocation.class.getName();
     private Parcelable mListState = null;
-    private String mCityEntered = null;
+    private String mCityEntered = "";
     private SharedPreferences prefs = null;
+    private SharedPreferences shared = null;
     private String mCityQuery = "http://api.openweathermap.org/data/2.5/weather?q=%s";
     private String mCityDaily = "http://api.openweathermap.org/data/2.5/forecast/daily?q=%s&mode=json&cnt=16";
     private String mCityHourly = "http://api.openweathermap.org/data/2.5/forecast?q=%s&mode=json";
+    private boolean isFirst;
 
 
     @Override
@@ -68,6 +73,8 @@ public class EnterLocation extends ActionBarActivity implements View.OnClickList
         else
             mSavedCity = new ArrayList<String>(set);
 
+        shared = getSharedPreferences("FirstInstructionScreen",0);
+
         handleScreenSize();
         mAuto = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         mSearch = (Button)findViewById(R.id.button_search);
@@ -75,7 +82,6 @@ public class EnterLocation extends ActionBarActivity implements View.OnClickList
         mSaveList = (ListView)findViewById(R.id.listView);
         mInstruction = (RelativeLayout)findViewById(R.id.relativeLayout_saved_instruction);
         mCitySavedList = (RelativeLayout)findViewById(R.id.relativeLayout_for_list_view);
-
         init();
         mSaveList.setOnItemClickListener(this);
         mSearch.setOnClickListener(this);
@@ -85,6 +91,7 @@ public class EnterLocation extends ActionBarActivity implements View.OnClickList
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_GO) {
                     mCityEntered = mAuto.getText().toString();
+                    hide_keyboard();
                     startAsyncTask(mCityEntered);
                 }
                 return false;
@@ -92,16 +99,33 @@ public class EnterLocation extends ActionBarActivity implements View.OnClickList
         });
     }
 
+    private void hide_keyboard(){
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mAuto.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        
+        if(shared.getBoolean("FirstInstructionScreen",true)){
+            Intent intent = new Intent(EnterLocation.this,InstructionsActivity.class);
+            startActivity(intent);
+            shared.edit().putBoolean("FirstInstructionScreen",false).commit();
+        }
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        prefs = this.getSharedPreferences("Saved_City_List",Context.MODE_PRIVATE);
+        prefs = this.getSharedPreferences("Saved_City_List", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = prefs.edit();
 
         Set<String> set = new HashSet<String>();
         set.addAll(mSavedCity);
         edit.putStringSet("Saved_City_List",set);
         edit.commit();
+
     }
 
     private void handleScreenSize(){
@@ -132,6 +156,7 @@ public class EnterLocation extends ActionBarActivity implements View.OnClickList
     }
 
     private void startAsyncTask(String str){
+        Log.d(mDebug,"Value of str is: "+str);
         if (!str.equals("")){
             DownloadWeather mDownload = new DownloadWeather(EnterLocation.this,str);
             mDownload.execute(mCityQuery, mCityDaily, mCityHourly);
@@ -148,6 +173,8 @@ public class EnterLocation extends ActionBarActivity implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.button_search:
+                mCityEntered = mAuto.getText().toString();
+                hide_keyboard();
                 startAsyncTask(mCityEntered);
                 break;
             case R.id.button_save:
@@ -156,6 +183,7 @@ public class EnterLocation extends ActionBarActivity implements View.OnClickList
                     Toast.makeText(getApplicationContext(),R.string.no_city_alert, Toast.LENGTH_LONG).show();
                 }
                 else {
+                    hide_keyboard();
                     /* Add the name of the city entered by the user to the array list */
                     mSavedCity.add(mCityEntered);
                     /* Notifies the observer that the data in the adapter has been changed and that any view

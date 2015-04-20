@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import org.json.JSONArray;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 /**
  * Created by ABHISHEK on 18-03-2015.
  */
-public class DailyForecastFragment extends Fragment {
+public class DailyForecastFragment extends Fragment{
 
     View view;
     private ArrayList<JSONObject> mListJsonDaily = WeatherConditionsActivity.mListJson;
@@ -58,8 +59,12 @@ public class DailyForecastFragment extends Fragment {
         initialize();
         fill_values();
 
-        CustomListAdapter mAdapter = new CustomListAdapter(getActivity().getApplicationContext(),description, temperature, day_date, images);
-        mDailyForecastList.setAdapter(mAdapter);
+        if(!description.equals("null")) {
+            CustomListAdapter mAdapter = new CustomListAdapter(getActivity().getApplicationContext(), description, temperature, day_date, images);
+            mDailyForecastList.setAdapter(mAdapter);
+        }
+        else
+            Toast.makeText(getActivity().getApplicationContext(),"Weather information could not be retrieved",Toast.LENGTH_SHORT).show();
 
         return view;
     }
@@ -126,7 +131,6 @@ public class DailyForecastFragment extends Fragment {
 
     private void add_images(int image_id, int position){
 
-        Bitmap bitmap = null;
         switch(image_id){
             case 201:
             case 210:
@@ -194,6 +198,8 @@ public class DailyForecastFragment extends Fragment {
 
         public CustomListAdapter(Context mContext, String[] mDesc, String[] mTemp, String[] mDate, int[] mImages) {
             super(mContext, R.layout.single_row_list_daily_forecast, R.id.text_description_value_daily_forecast, mDesc);
+            Log.d(mDebug, "The value of mContext is: " + mContext);
+            Log.d(mDebug,"The value of mDesc is: " + mDesc);
             this.mContext = mContext;
             this.mDesc = mDesc;
             this.mTemp = mTemp;

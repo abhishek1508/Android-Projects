@@ -1,10 +1,13 @@
 package com.example.abhishek.weather;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Display;
@@ -16,6 +19,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import org.json.JSONException;
@@ -75,8 +79,7 @@ public class CurrentConditionFragment extends Fragment implements View.OnClickLi
 
         initialize();
         fill_values();
-        Intent intent = new Intent(getActivity(),InstructionsActivity.class);
-        startActivity(intent);
+
         return view;
     }
 
@@ -225,5 +228,4 @@ public class CurrentConditionFragment extends Fragment implements View.OnClickLi
         }
 
     }
-
 }

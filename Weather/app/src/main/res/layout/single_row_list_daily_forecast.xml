@@ -17,7 +17,6 @@
         <ImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
-
             android:id="@+id/image_description_daily_forecast"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"

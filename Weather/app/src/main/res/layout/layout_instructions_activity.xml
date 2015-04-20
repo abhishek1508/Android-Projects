@@ -60,7 +60,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="You can swipe"
+        android:text="After you start viewing the weather swipe"
         android:textSize="17sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"

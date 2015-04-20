@@ -25,6 +25,7 @@ public class WeatherConditionsActivity extends FragmentActivity {
     private JSONObject mJsonDaily = null;
     private JSONObject mJsonHourly = null;
     public static ArrayList<JSONObject> mListJson = null;
+    int currentPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class WeatherConditionsActivity extends FragmentActivity {
         FragmentManager fm = getSupportFragmentManager();
         mPageAdapter = new WeatherFragmentPageViewAdapter(fm);
         mPager.setAdapter(mPageAdapter);
+
 
         mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

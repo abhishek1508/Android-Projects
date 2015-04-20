@@ -133,11 +133,15 @@ public class DownloadWeather extends AsyncTask<String, Void, WrapperWeatherData>
              * returned JSONObject in the form of strings.
              */
             Intent intent = new Intent(mContext, WeatherConditionsActivity.class);
-            intent.putExtra("current", (mWrapper.mCurrentCondition).toString());
-            intent.putExtra("daily", (mWrapper.mDailyForecast).toString());
-            intent.putExtra("hourly", (mWrapper.mHourlyForecast).toString());
-            intent.putExtra("city_name", mWrapper.mCity);
-            mContext.startActivity(intent);
+            if(mWrapper.mCurrentCondition != null && mWrapper.mDailyForecast != null && mWrapper.mHourlyForecast != null) {
+                intent.putExtra("current", (mWrapper.mCurrentCondition).toString());
+                intent.putExtra("daily", (mWrapper.mDailyForecast).toString());
+                intent.putExtra("hourly", (mWrapper.mHourlyForecast).toString());
+                intent.putExtra("city_name", mWrapper.mCity);
+                mContext.startActivity(intent);
+            }
+            else
+                Toast.makeText(mContext,"Weather for the city could not be retrieved",Toast.LENGTH_SHORT).show();
         }
         else {
             mProgress.dismiss();
