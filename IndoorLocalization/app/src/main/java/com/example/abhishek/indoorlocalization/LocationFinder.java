@@ -33,7 +33,8 @@ public class LocationFinder extends ActionBarActivity {
     private TextView mPopular;
     Bitmap bm = null;
     RoundImage roundedImage;
-    int image = R.drawable.background;
+    int[] image = {R.drawable.image_wells, R.drawable.image_kelley, R.drawable.image_informatics, R.drawable.image_jordan,
+                    R.drawable.image_law, R.drawable.image_music, R.drawable.image_woodburn, R.drawable.image_ballantine};
     DatabaseHelperAdapter mDatabaseHelperAdapter;
     EnterSignsAndLocation mEnterData = null;
     private String mDebug = LocationFinder.class.getName();
@@ -123,8 +124,8 @@ public class LocationFinder extends ActionBarActivity {
 
         Context context;
         String[] mBuildings;
-        int image;
-        public PopularBuildingAdapter(Context context, int image, String[] mBuildings) {
+        int[] image;
+        public PopularBuildingAdapter(Context context, int[] image, String[] mBuildings) {
             super(context, R.layout.single_row,R.id.list_building_name,mBuildings);
             this.context = context;
             this.mBuildings = mBuildings;
@@ -142,8 +143,8 @@ public class LocationFinder extends ActionBarActivity {
             TextView mText = (TextView) row.findViewById(R.id.list_building_name);
             mText.setText(mBuildings[position]);
             ImageView images = (ImageView) row.findViewById(R.id.images);
-            bm = BitmapFactory.decodeResource(getResources(),image);
-            roundedImage = new RoundImage(bm);
+            bm = BitmapFactory.decodeResource(getResources(),image[position]);
+            roundedImage = new RoundImage(bm, getResources().getColor(R.color.custom_blue_shade_1));
             images.setImageDrawable(roundedImage);
 
             return row;

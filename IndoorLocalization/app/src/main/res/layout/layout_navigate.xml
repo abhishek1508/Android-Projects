@@ -6,4 +6,16 @@
     android:background="#e8eaf6">
 
 
+    <TextView
+        android:layout_width="180dp"
+        android:layout_height="120dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#3f51b5"
+        android:textStyle="bold"
+        android:textSize="45sp"
+        android:text="COMING SOON"
+        android:id="@+id/textView"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

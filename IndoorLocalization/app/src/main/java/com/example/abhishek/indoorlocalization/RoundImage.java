@@ -1,5 +1,6 @@
 package com.example.abhishek.indoorlocalization;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
@@ -19,23 +20,21 @@ public class RoundImage extends Drawable {
     private final Bitmap mBitmap;
     private final Paint mPaint;
     private final Paint mPaintBorder;
-    private final RectF mRectF;
     private final int mBitmapWidth;
     private final int mBitmapHeight;
 
-    public RoundImage(Bitmap bitmap) {
+    public RoundImage(Bitmap bitmap, int color) {
 
         mBitmap = bitmap;
-        mRectF = new RectF();
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
 
         mPaintBorder = new Paint();
         mPaintBorder.setAntiAlias(true);
-        mPaintBorder.setColor(Color.WHITE);
+        mPaintBorder.setColor(color);
         mPaintBorder.setStyle(Paint.Style.STROKE);
-        mPaintBorder.setStrokeWidth(8.0f);
+        mPaintBorder.setStrokeWidth(25.0f);
 
         final BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         mPaint.setShader(shader);
@@ -44,13 +43,8 @@ public class RoundImage extends Drawable {
     }
     @Override
     public void draw(Canvas canvas) {
-        Log.d("abhishek","inside draw to draw circle");
-        Log.d("abhishek","mPaint: "+mPaint);
-        Log.d("abhishek","mPaintBorder: "+mPaintBorder);
-        Log.d("abhishek","mBitmapwidth: "+mBitmapWidth);
-        Log.d("abhishek","mBitmapHeight: "+mBitmapHeight);
-        canvas.drawCircle(mBitmapWidth / 2, mBitmapHeight / 2, 80, mPaint);
-        canvas.drawCircle(mBitmapWidth / 2, mBitmapHeight / 2, 80, mPaintBorder);
+        canvas.drawCircle(mBitmapWidth / 2, mBitmapHeight / 2, 130, mPaint);
+        canvas.drawCircle(mBitmapWidth / 2, mBitmapHeight / 2, 130, mPaintBorder);
     }
     @Override
     public void setAlpha(int alpha) {

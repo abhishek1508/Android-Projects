@@ -82,7 +82,7 @@ public class DatabaseHelperAdapter {
 
         private static final String DATABASE_NAME= "ILSDatabase";
         private static final String TABLE_NAME="ILSTable";
-        private static final int DATABASE_VERSION = 57;
+        private static final int DATABASE_VERSION = 58;
         private static final String BUILD_NAME="build_name";
         private static final String FLOOR="floor";
         private static final String PREV_SIGN="prev_sign";
@@ -108,9 +108,10 @@ public class DatabaseHelperAdapter {
             try {
                 db.execSQL(CREATE_TABLE);
                 ContentValues cv= new ContentValues();
+                int k = 2;
                 for(int i = 0; i < EnterSignsAndLocation.mList.size(); i++){
                     cv.put(DatabaseHelper.BUILD_NAME, "Jordan Hall");
-                    cv.put(DatabaseHelper.FLOOR,"Floor "+String.valueOf(i+1));
+                    cv.put(DatabaseHelper.FLOOR,"Floor "+String.valueOf(k));
                     int count = 0;
                     for(Map.Entry me : EnterSignsAndLocation.mList.get(i).entrySet()){
                         cv.put(DatabaseHelper.CURR_SIGN, String.valueOf(me.getKey()));
@@ -119,6 +120,7 @@ public class DatabaseHelperAdapter {
                         count++;
                     }
                     Log.d(mDebug, "The value of count is: "+ count);
+                    k = 6;
                 }
 
             }catch (Exception e){

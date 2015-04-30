@@ -10,7 +10,6 @@
     <string name="navigate">Navigate</string>
 
     <string-array name="all_buildings">
-        <item>Indiana Memorial Union</item>
         <item>Wells Library</item>
         <item>Kelley Business School</item>
         <item>Informatics East</item>
@@ -27,7 +26,6 @@
         <item>Swain Library</item>
     </string-array>
     <string-array name="popular_buildings_list">
-        <item>Indiana Memorial Union</item>
         <item>Wells Library</item>
         <item>Kelley Business School</item>
         <item>Informatics East</item>

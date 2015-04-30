@@ -3,6 +3,7 @@ package com.example.abhishek.indoorlocalization;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.os.Bundle;
 import android.app.Activity;
@@ -17,7 +18,7 @@ import android.view.ScaleGestureDetector;
 /**
  * Created by ABHISHEK on 31-03-2015.
  */
-public class FindOnMap extends Activity{
+public class FindOnMap extends ActionBarActivity{
 
     private GetViewOfMap mGetViewOfMap;
     private float scale = 1f;
@@ -27,6 +28,13 @@ public class FindOnMap extends Activity{
     public float height;
     public static float x;
     public static float y;
+    private long scaleTime;
+    private long scrollTime;
+    private long prevScrollTime;
+    private float prevXTrans;
+    private float prevYTrans;
+    int image;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +43,15 @@ public class FindOnMap extends Activity{
         Intent intent= getIntent();
 
         String loc= intent.getStringExtra("coordinates");
+        String floorNum= intent.getStringExtra("floor_number");
+
+        if(floorNum.equals("Floor 2")){
+            image=R.drawable.floor2;
+        }
+        if(floorNum.equals("Floor 6")){
+            image=R.drawable.floor6;
+        }
+
         String[] coordinates= loc.split(",");
         x= Float.parseFloat(coordinates[0]);
         y= Float.parseFloat(coordinates[1]);
@@ -42,8 +59,9 @@ public class FindOnMap extends Activity{
 
         Log.d("location", "Show_Locaton : The coordinates are :" + loc);
 
-        mGetViewOfMap = (GetViewOfMap) findViewById(R.id.fruit);
+        mGetViewOfMap = (GetViewOfMap) findViewById(R.id.floormap);
 
+        mGetViewOfMap.setImageResource(image);
         SGD = new ScaleGestureDetector(this,new ScaleListener());
         SL = new GestureDetector(this, new ScrollListener());
     }
@@ -55,7 +73,9 @@ public class FindOnMap extends Activity{
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        height = metrics.heightPixels;
+        int actionBarHeight = getSupportActionBar().getHeight();
+
+        height = metrics.heightPixels - actionBarHeight;
         width = metrics.widthPixels;
 
     }
@@ -75,16 +95,26 @@ public class FindOnMap extends Activity{
         public boolean onScale(ScaleGestureDetector detector) {
 
             scale *= detector.getScaleFactor();
-            scale = Math.max(0.1f, Math.min(scale, 5f));
+            scale = Math.max(0.1f, Math.min(scale, 3f));
+            scaleTime = System.currentTimeMillis();
 
-            if(width*scale >= 720 && height*scale >= 920){
+            if(width*scale >= width && height*scale >= height){
                 mGetViewOfMap.setScaleX(scale);
                 mGetViewOfMap.setScaleY(scale);
+
+                x = (width*scale - width)/2;
+                y = (height*scale- height)/2;
             }
             else
             {scale = 1;
                 mGetViewOfMap.setScaleX(scale);
                 mGetViewOfMap.setScaleY(scale);
+                x = 0;
+                y = 0;
+
+                mGetViewOfMap.setX(0);
+                mGetViewOfMap.setY(0);
+
 
             }
 
@@ -98,14 +128,36 @@ public class FindOnMap extends Activity{
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY){
 
-            if(e2.getPointerCount()==1)
-            {float transXdist = e2.getX()-e1.getX();
-                float transYdist = e2.getY()-e1.getY();
+            scrollTime = System.currentTimeMillis();
+            System.out.println("Time Diff: "+Math.abs(scrollTime-scaleTime));
 
-                mGetViewOfMap.setTranslationX(transXdist);
-                mGetViewOfMap.setTranslationY(transYdist);
+            if(Math.abs(scrollTime-scaleTime)>100){
+                if(e2.getPointerCount()==1)
+                {float transXdist = e2.getX()-e1.getX();
+                    float transYdist = e2.getY()-e1.getY();
+
+                    float edgeWidth = Math.max(x - Math.abs(transXdist),0);
+                    float edgeHeight = Math.max(y - Math.abs(transYdist),0);
+
+                    //System.out.println("edgeWidth: "+edgeWidth+", edgeHeight: "+edgeHeight+", transXdist: "+transXdist+", transYdist: "+transYdist);
+
+                    if(edgeWidth > 0)
+                        mGetViewOfMap.setTranslationX(transXdist);
+
+                    if(edgeHeight > 0)
+                        mGetViewOfMap.setTranslationY(transYdist);
+
+                    prevXTrans = transXdist;
+                    prevYTrans = transYdist;
+                }
+
+                else{
+                    mGetViewOfMap.setX(0);
+                    mGetViewOfMap.setY(0);
+                }
             }
 
+            prevScrollTime = scrollTime;
             return true;
         }
 
