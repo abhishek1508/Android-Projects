@@ -149,7 +149,7 @@ public class Current_Location extends Fragment implements View.OnClickListener{
         String mSignEntered = mSelectSign.getText().toString();
         int result = 0;
         for(int i = 0; i < mListOfSigns.length; i++){
-            if(!mSignEntered.equalsIgnoreCase(mListOfSigns[i])){
+            if(!mSignEntered.equals(mListOfSigns[i])){
                 continue;
             }
             else{
@@ -158,7 +158,7 @@ public class Current_Location extends Fragment implements View.OnClickListener{
             }
         }
         if(result != 1)
-            Toast.makeText(mContext,"Please enter a sign",Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext,"Please select a sign from the list",Toast.LENGTH_LONG).show();
         else{
             mSelectSign.setText("");
             String mLocationRetrieved = DatabaseHelperAdapter.getInstance(mContext).getLocation(floor_selected,mSignEntered);
