@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,9 +29,8 @@ public class LocationFinder extends ActionBarActivity {
     ListView mList;
     String[] mBuildings;
     String[] mAutoCompleteBuilding;
-    private TextView mEnterBuilding;
     private AutoCompleteTextView mAuto;
-    private TextView mPopular;
+    private Button mFind;
     Bitmap bm = null;
     RoundImage roundedImage;
     int[] image = {R.drawable.image_wells, R.drawable.image_kelley, R.drawable.image_informatics, R.drawable.image_jordan,
@@ -45,15 +45,24 @@ public class LocationFinder extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
-        mEnterBuilding = (TextView)findViewById(R.id.enter_building);
         mAuto = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextView);
         mAuto.setImeActionLabel("GO",EditorInfo.IME_ACTION_GO);
-        mPopular = (TextView)findViewById(R.id.most_popular);
         mList = (ListView) findViewById(R.id.listView);
+        mFind = (Button)findViewById(R.id.button_find_location);
 
         init();
         softKeyboardFunction(mAuto,false);
 
+        mFind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mAuto.getText().toString().equals("")){
+                    Toast.makeText(LocationFinder.this, "Please enter a building name", Toast.LENGTH_LONG).show();
+                }
+                else
+                    startLocatorDetailsActivity(mAuto.getText().toString(),mDatabaseHelperAdapter.getFloorCount(mAuto.getText().toString()));
+            }
+        });
         mAuto.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -65,9 +74,7 @@ public class LocationFinder extends ActionBarActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_GO){
-                    String mBuildingName = v.getText().toString();
-                    Log.d(mDebug, "Name of the building is: "+mBuildingName);
-                    startLocatorDetailsActivity(mBuildingName,mDatabaseHelperAdapter.getFloorCount(mBuildingName));
+                    check_Text_entered(v);
                 }
                 return false;
             }
@@ -83,6 +90,16 @@ public class LocationFinder extends ActionBarActivity {
                 startLocatorDetailsActivity(mBuildingName,mDatabaseHelperAdapter.getFloorCount(mBuildingName));
             }
         });
+    }
+
+    private void check_Text_entered(TextView v){
+        String mBuildingName = v.getText().toString();
+        if(!mBuildingName.equals("")) {
+            Log.d(mDebug, "Name of the building is: " + mBuildingName);
+            startLocatorDetailsActivity(mBuildingName, mDatabaseHelperAdapter.getFloorCount(mBuildingName));
+        }
+        else
+            Toast.makeText(LocationFinder.this, "Please enter a building name", Toast.LENGTH_LONG).show();
     }
 
     private void startLocatorDetailsActivity(String str, int no_of_floors){

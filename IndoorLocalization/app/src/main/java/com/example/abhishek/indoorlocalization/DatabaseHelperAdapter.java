@@ -82,7 +82,7 @@ public class DatabaseHelperAdapter {
 
         private static final String DATABASE_NAME= "ILSDatabase";
         private static final String TABLE_NAME="ILSTable";
-        private static final int DATABASE_VERSION = 58;
+        private static final int DATABASE_VERSION = 60;
         private static final String BUILD_NAME="build_name";
         private static final String FLOOR="floor";
         private static final String PREV_SIGN="prev_sign";

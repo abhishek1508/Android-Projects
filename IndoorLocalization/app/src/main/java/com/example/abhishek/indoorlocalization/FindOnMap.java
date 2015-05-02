@@ -56,9 +56,6 @@ public class FindOnMap extends ActionBarActivity{
         x= Float.parseFloat(coordinates[0]);
         y= Float.parseFloat(coordinates[1]);
 
-
-        Log.d("location", "Show_Locaton : The coordinates are :" + loc);
-
         mGetViewOfMap = (GetViewOfMap) findViewById(R.id.floormap);
 
         mGetViewOfMap.setImageResource(image);
