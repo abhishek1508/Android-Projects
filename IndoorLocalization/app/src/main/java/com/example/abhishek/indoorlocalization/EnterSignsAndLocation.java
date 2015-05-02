@@ -10,7 +10,6 @@ package com.example.abhishek.indoorlocalization;
 public class EnterSignsAndLocation {
 
     public static List<HashMap<String,String>> mList = new ArrayList<>();
-    //HashMap<String,String> mFloor1Details = new HashMap<>();
     HashMap<String,String> mFloor2Details = new HashMap<>();
     HashMap<String,String> mFloor6Details = new HashMap<>();
 
@@ -25,7 +24,7 @@ public class EnterSignsAndLocation {
         mFloor2Details.put("116","672,678");
         mFloor2Details.put("119","592,750");
         mFloor2Details.put("113","508,678");
-        mFloor2Details.put("115, Womens Restroom","414,670");
+        mFloor2Details.put("115, Womens Restroom","414,660");
         mFloor2Details.put("117","486,765");
         mFloor2Details.put("Sign- Medical Sciences (near back Entrance)","458,684");
         mFloor2Details.put("Exit (near 115, Womens Restroom)","478,683");
@@ -41,7 +40,7 @@ public class EnterSignsAndLocation {
         mFloor2Details.put("105, Directors Office","497,503");
         mFloor2Details.put("102, Alumni Room, Conference Room","571,441");
         mFloor2Details.put("103","462,460");
-        mFloor2Details.put("101","462,423");
+        mFloor2Details.put("101","462,363");//423
         mFloor2Details.put("Sign- Medical Sciences (near 101)","548,397");
         mFloor2Details.put("Exit (near Northwest Entrance)","548,397");
         mFloor2Details.put("Sign- Medical Sciences (near A100)","615,364");
@@ -106,9 +105,9 @@ public class EnterSignsAndLocation {
         mFloor2Details.put("A109, L113","1044,172");
         mFloor2Details.put("A110, Q201 ","966,97");
         mFloor2Details.put("A111","904,177");
-        mFloor2Details.put("A112, James Hengeveld Biology L113","828,137");
-        mFloor2Details.put("A113","828,171");
-        mFloor2Details.put("A114","828,281");
+        mFloor2Details.put("A112, James Hengeveld Biology L113","828,110");//127
+        mFloor2Details.put("A113","828,151");
+        mFloor2Details.put("A114","828,171");
         mFloor2Details.put("A115, Biology Undergraduate Advisor","828,223");
         mFloor2Details.put("A104, L113","903,278");
         mFloor2Details.put("A196A, Mens Restroom","889,380");
@@ -119,6 +118,7 @@ public class EnterSignsAndLocation {
         mFloor2Details.put("A199, Cafeteria","705,293");
         mFloor2Details.put("Sign- Jordan Hall A302 (near A199, Cafeteria)","823,317");
         mFloor2Details.put("Sign- South Stair 1 (near 123, Lieber Room)","850,645");
+
 
         mFloor6Details.put("SouthEast Stair Roof Access","1546,900");
         mFloor6Details.put("598","1474,900");
@@ -138,31 +138,31 @@ public class EnterSignsAndLocation {
         mFloor6Details.put("A501","877,777");
         mFloor6Details.put("Exit (near A501)","909,730");//check again
         mFloor6Details.put("A502","730,650");
-        mFloor6Details.put("A502A","845,591");//chk again
-        mFloor6Details.put("A505","1002,560");//chk again
-        mFloor6Details.put("A506, FlyBase","1011,376");//chk again
-        mFloor6Details.put("A515","964,408");//chk again
-        mFloor6Details.put("A517","964,408");//same as A515
-        mFloor6Details.put("A595, Women Restroom","950,480");//chk
-        mFloor6Details.put("A596, Men Restroom","1040,477");//chk
-        mFloor6Details.put("A507","1124,480");//chk
+        mFloor6Details.put("A502A","845,591");
+        mFloor6Details.put("A505","1002,560");
+        mFloor6Details.put("A506, FlyBase","1011,376");
+        mFloor6Details.put("A515","964,408");
+        mFloor6Details.put("A517","964,408");
+        mFloor6Details.put("A595, Women Restroom","950,480");
+        mFloor6Details.put("A596, Men Restroom","1040,477");
+        mFloor6Details.put("A507","1124,480");
         mFloor6Details.put("A505C","1083,553");
         mFloor6Details.put("Exit (near A508)","1156,448");
         mFloor6Details.put("A508","1174,480");
         mFloor6Details.put("A509","1228,474");
         mFloor6Details.put("Exit (near A509)","1193,408");
-        mFloor6Details.put("A599G, Service Elevator","1193,438");
+        mFloor6Details.put("A599G, Service Elevator","1193,388");//438
         mFloor6Details.put("A598B","1243,474");
         mFloor6Details.put("A597","1243,360");
-        mFloor6Details.put("A510A","1065,360");//ck again
+        mFloor6Details.put("A510A","1065,360");
         mFloor6Details.put("A510","1065,360");
-        mFloor6Details.put("A510B","1065,360");//same as A510A
-        mFloor6Details.put("A511","1226,340");
+        mFloor6Details.put("A510B","1065,360");
+        mFloor6Details.put("A511","1226,280");//340
         mFloor6Details.put("A513","1069,330");
-        mFloor6Details.put("A512","1164,309");
-        mFloor6Details.put("A514","1062,268");
+        mFloor6Details.put("A512","1164,239");//309
+        mFloor6Details.put("A514","1062,208");//268
         mFloor6Details.put("Exit (near A514)","1106,296");
-        mFloor6Details.put("Sign- Stair (near A514)","1106,296");
+        mFloor6Details.put("Sign- Stair (near A514)","1106,206");//296
         mFloor6Details.put("NorthEast Stair Roof Access 5","1106,296");
         mFloor6Details.put("Sign- 5a","1106,296");//same as roof access sign*/
 
