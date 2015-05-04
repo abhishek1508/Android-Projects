@@ -28,7 +28,8 @@ public class LocatorDetailsActivity extends ActionBarActivity implements Fragmen
         setContentView(R.layout.locate_yourself);
 
         Bundle extras = getIntent().getExtras();
-        number_of_floors = Integer.parseInt(extras.getString("number_of_floors"));
+        if(extras != null)
+            number_of_floors = Integer.parseInt(extras.getString("number_of_floors"));
 
         if(savedInstanceState == null)
             getFragmentManager().beginTransaction().add(R.id.frame_container, new Current_Location()).commit();
