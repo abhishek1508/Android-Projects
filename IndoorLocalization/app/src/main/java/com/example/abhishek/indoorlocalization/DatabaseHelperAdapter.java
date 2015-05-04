@@ -1,7 +1,7 @@
 package com.example.abhishek.indoorlocalization;
 
 /**
- * Created by shardendu on 2/27/15.
+ * Created on 2/27/15.
  */
 import android.content.ContentValues;
 import android.content.Context;
@@ -36,6 +36,7 @@ public class DatabaseHelperAdapter {
         return mInstance;
     }
 
+    //function get the co-ordinates of the sign entered by the user
     public String getLocation(String mFloorNum, String mSignText) {
         SQLiteDatabase db2 = helper.getWritableDatabase();
         String[] columns = {helper.LOCATION};
@@ -52,6 +53,8 @@ public class DatabaseHelperAdapter {
 
         return locate;
     }
+
+    //function to get the number of floors in the building selected by user
     public Integer getFloorCount(String build_name) {
         SQLiteDatabase db2 = helper.getWritableDatabase();
         String[] columns = {helper.FLOOR};
@@ -59,6 +62,8 @@ public class DatabaseHelperAdapter {
         int i=cursor.getCount();
         return i;
     }
+
+    //function to get all the signs from the floor selected by user
     public String[] getSigns(String mFloorNum) {
         SQLiteDatabase db2 = helper.getWritableDatabase();
         String[] columns = {helper.CURR_SIGN};
@@ -77,6 +82,7 @@ public class DatabaseHelperAdapter {
         Log.d(mDebug, "The value of signs inside getSigns is: "+ signs);
         return signs;
     }
+
 
     public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -129,6 +135,8 @@ public class DatabaseHelperAdapter {
 
 
         }
+
+        //function to populate the database
         public void insertValues(SQLiteDatabase db, ContentValues cv){
             try{
                 long id=db.insert(DatabaseHelper.TABLE_NAME,null, cv);
@@ -140,6 +148,7 @@ public class DatabaseHelperAdapter {
         }
 
         @Override
+        //onUpgrade on called when there is a change in any of the database attributes
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
             try {
@@ -151,7 +160,5 @@ public class DatabaseHelperAdapter {
     }
 
 }
-/**
- * Created by shardendu on 2/26/15.
- */
+
 
