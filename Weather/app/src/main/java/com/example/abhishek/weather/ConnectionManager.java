@@ -16,10 +16,14 @@ public class ConnectionManager {
         this.mContext = context;
     }
 
-    public void getConnectionDetails(){
-        ConnectivityManager cm = (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public boolean getConnectionDetails() {
+        ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = cm.getActiveNetworkInfo();
-        if(info == null)
+        if (info != null && info.isConnectedOrConnecting())
+            return true;
+        else {
             Toast.makeText(mContext, R.string.check_connection, Toast.LENGTH_LONG).show();
+            return false;
+        }
     }
 }
