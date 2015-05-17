@@ -40,6 +40,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/scrollView_parent"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="5dp"
         android:layout_below="@+id/relativeLayout_hourly_forecast"
         android:layout_alignLeft="@+id/relativeLayout_hourly_forecast"
@@ -147,56 +148,6 @@
                 android:verticalSpacing="5dp"
                 android:id="@+id/gridView_data_second_child"
                 android:layout_below="@+id/relativeLayout_second_heading"/>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="55dp"
-                android:background="@android:color/black"
-                android:alpha="0.9"
-                android:layout_below="@+id/gridView_data_second_child"
-                android:id="@+id/relativeLayout_third_heading">
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
-                    android:id="@+id/textView_day_date_hourly_forecast_3"
-                    android:layout_centerVertical="true"
-                    android:textSize="21sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"
-                    android:layout_marginLeft="10dp"/>
-            </RelativeLayout>
-
-            <com.example.abhishek.weather.CustomGridView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginBottom="5dp"
-                android:numColumns="4"
-                android:stretchMode="columnWidth"
-                android:columnWidth="80dp"
-                android:horizontalSpacing="3dp"
-                android:verticalSpacing="5dp"
-                android:id="@+id/gridView_data_third_child_animate"
-                android:layout_below="@+id/relativeLayout_third_heading"/>
-
-            <com.example.abhishek.weather.CustomGridView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginBottom="10dp"
-                android:numColumns="4"
-                android:stretchMode="columnWidth"
-                android:columnWidth="80dp"
-                android:horizontalSpacing="3dp"
-                android:verticalSpacing="5dp"
-                android:id="@+id/gridView_data_third_child"
-                android:layout_below="@+id/relativeLayout_third_heading"/>
         </RelativeLayout>
     </ScrollView>
 

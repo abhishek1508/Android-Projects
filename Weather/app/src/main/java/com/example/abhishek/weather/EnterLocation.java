@@ -40,6 +40,7 @@ public class EnterLocation extends ActionBarActivity implements View.OnClickList
     RelativeLayout mCitySavedList;
 
     String[] mCity = null;
+    private ConnectionManager mConnection;
     private ArrayAdapter<String> mAdapter = null;
     private CustomSaveAdapter mSavedAdapter = null;
     private ArrayList<String> mSavedCity = null;
@@ -61,42 +62,44 @@ public class EnterLocation extends ActionBarActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_weather);
 
+
         /* Initially gets the preferences from the shared preferences by passing the Key
          * Saved_City_List. Now the preferences check for the existence of StringSet values
          * in the HashSet corresponding to the key passed. If values have been saved
          * previously then an object of ArrayList is made with that particular set object
          * else an ArrayList object is created. */
-        prefs = this.getSharedPreferences("Saved_City_List",Context.MODE_PRIVATE);
-        Set<String> set = prefs.getStringSet("Saved_City_List", null);
-        if(set == null)
-            mSavedCity = new ArrayList<String>();
-        else
-            mSavedCity = new ArrayList<String>(set);
+            prefs = this.getSharedPreferences("Saved_City_List", Context.MODE_PRIVATE);
+            Set<String> set = prefs.getStringSet("Saved_City_List", null);
+            if (set == null)
+                mSavedCity = new ArrayList<String>();
+            else
+                mSavedCity = new ArrayList<String>(set);
 
-        shared = getSharedPreferences("FirstInstructionScreen",0);
-
-        handleScreenSize();
-        mAuto = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
-        mSearch = (Button)findViewById(R.id.button_search);
-        mSave = (Button)findViewById(R.id.button_save);
-        mSaveList = (ListView)findViewById(R.id.listView);
-        mInstruction = (RelativeLayout)findViewById(R.id.relativeLayout_saved_instruction);
-        mCitySavedList = (RelativeLayout)findViewById(R.id.relativeLayout_for_list_view);
-        init();
-        mSaveList.setOnItemClickListener(this);
-        mSearch.setOnClickListener(this);
-        mSave.setOnClickListener(this);
-        mAuto.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_GO) {
-                    mCityEntered = mAuto.getText().toString();
-                    hide_keyboard();
-                    startAsyncTask(mCityEntered);
-                }
-                return false;
-            }
-        });
+            shared = getSharedPreferences("FirstInstructionScreen", 0);
+            mConnection = new ConnectionManager(this);
+            mConnection.getConnectionDetails();
+                handleScreenSize();
+                mAuto = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+                mSearch = (Button) findViewById(R.id.button_search);
+                mSave = (Button) findViewById(R.id.button_save);
+                mSaveList = (ListView) findViewById(R.id.listView);
+                mInstruction = (RelativeLayout) findViewById(R.id.relativeLayout_saved_instruction);
+                mCitySavedList = (RelativeLayout) findViewById(R.id.relativeLayout_for_list_view);
+                init();
+                mSaveList.setOnItemClickListener(this);
+                mSearch.setOnClickListener(this);
+                mSave.setOnClickListener(this);
+                mAuto.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == EditorInfo.IME_ACTION_GO) {
+                            mCityEntered = mAuto.getText().toString();
+                            hide_keyboard();
+                            startAsyncTask(mCityEntered);
+                        }
+                        return false;
+                    }
+                });
     }
 
     private void hide_keyboard(){
@@ -107,7 +110,7 @@ public class EnterLocation extends ActionBarActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
-        
+
         if(shared.getBoolean("FirstInstructionScreen",true)){
             Intent intent = new Intent(EnterLocation.this,InstructionsActivity.class);
             startActivity(intent);

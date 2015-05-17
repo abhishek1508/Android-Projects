@@ -33,24 +33,19 @@ public class HourlyForecastFragment extends Fragment{
     private ArrayList<JSONObject> mListJsonHourly = WeatherConditionsActivity.mListJson;
     private JSONObject mHourlyJson = null;
     View view;
-    GridView grid;
-    TextView mDayDateGrid1,mDayDateGrid2,mDayDateGrid3;
+    TextView mDayDateGrid1,mDayDateGrid2;
     ImageView mImage;
-    CustomGridView grid1_desc,grid1_data,grid2_data,grid2_desc,grid3_data,grid3_desc;
+    CustomGridView grid1_desc,grid1_data,grid2_data,grid2_desc;
     boolean mGrid1_isHidden = false;
     boolean mGrid2_isHidden = false;
-    boolean mGrid3_isHidden = false;
     private ParseJson mParse = null;
     private AddImages mAddImage = null;
     String[] time_grid1 = new String[8];
     String[] time_grid2 = new String[8];
-    String[] time_grid3 = new String[8];
     String[] temp_grid1 = new String[8];
     String[] temp_grid2 = new String[8];
-    String[] temp_grid3 = new String[8];
     int[] mImage_grid1 = new int[8];
     int[] mImage_grid2 = new int[8];
-    int[] mImage_grid3 = new int[8];
     private FindDate mDate;
     private String mDebug = HourlyForecastFragment.class.getName();
 
@@ -63,11 +58,8 @@ public class HourlyForecastFragment extends Fragment{
         grid1_desc = (CustomGridView) view.findViewById(R.id.gridView_data_first_child_animate);
         grid2_data = (CustomGridView) view.findViewById(R.id.gridView_data_second_child);
         grid2_desc = (CustomGridView) view.findViewById(R.id.gridView_data_second_child_animate);
-        grid3_data = (CustomGridView) view.findViewById(R.id.gridView_data_third_child);
-        grid3_desc = (CustomGridView) view.findViewById(R.id.gridView_data_third_child_animate);
         mDayDateGrid1 = (TextView) view.findViewById(R.id.textView_day_date_hourly_forecast_1);
         mDayDateGrid2 = (TextView) view.findViewById(R.id.textView_day_date_hourly_forecast_2);
-        mDayDateGrid3 = (TextView) view.findViewById(R.id.textView_day_date_hourly_forecast_3);
         mImage = (ImageView)view.findViewById(R.id.background_hourly_forecast);
 
         mDate = new FindDate();
@@ -77,16 +69,12 @@ public class HourlyForecastFragment extends Fragment{
 
         GridAdapter mAdapter_data1 = new GridAdapter(getActivity(),R.layout.single_grid_child_hourly_forecast,time_grid1);
         GridAdapter mAdapter_data2 = new GridAdapter(getActivity(),R.layout.single_grid_child_hourly_forecast,time_grid2);
-        GridAdapter mAdapter_data3 = new GridAdapter(getActivity(),R.layout.single_grid_child_hourly_forecast,time_grid3);
         GridAdapterAnimate mAdapter_temp1 = new GridAdapterAnimate(getActivity(),R.layout.single_grid_child_description_hourly_forecast,temp_grid1,mImage_grid1);
         GridAdapterAnimate mAdapter_temp2 = new GridAdapterAnimate(getActivity(),R.layout.single_grid_child_description_hourly_forecast,temp_grid2,mImage_grid2);
-        GridAdapterAnimate mAdapter_temp3 = new GridAdapterAnimate(getActivity(),R.layout.single_grid_child_description_hourly_forecast,temp_grid3,mImage_grid3);
         grid1_data.setAdapter(mAdapter_data1);
         grid2_data.setAdapter(mAdapter_data2);
-        grid3_data.setAdapter(mAdapter_data3);
         grid1_desc.setAdapter(mAdapter_temp1);
         grid2_desc.setAdapter(mAdapter_temp2);
-        grid3_desc.setAdapter(mAdapter_temp3);
 
         grid1_data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -150,37 +138,6 @@ public class HourlyForecastFragment extends Fragment{
             }
         });
 
-        grid3_data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Animation FadeIn = AnimationUtils.loadAnimation(getActivity(),R.anim.animation_fade_in);
-                Animation FadeOut = AnimationUtils.loadAnimation(getActivity(),R.anim.animation_fade_out);
-
-                if(!mGrid3_isHidden) {
-                    for (int i = 0; i < grid3_desc.getChildCount(); i++) {
-                        RelativeLayout mRelative_data = (RelativeLayout) grid3_data.getChildAt(i);
-                        mRelative_data.getChildAt(0).setAnimation(FadeOut);
-                        mRelative_data.getChildAt(0).setVisibility(View.INVISIBLE);
-                        RelativeLayout mRelative_desc = (RelativeLayout) grid3_desc.getChildAt(i);
-                        mRelative_desc.getChildAt(0).setAnimation(FadeIn);
-                        mRelative_desc.getChildAt(0).setVisibility(View.VISIBLE);
-                    }
-                    mGrid3_isHidden = true;
-                }
-                else{
-                    for(int i = 0; i < grid3_desc.getChildCount(); i++){
-                        RelativeLayout mRelative_desc = (RelativeLayout) grid3_desc.getChildAt(i);
-                        mRelative_desc.getChildAt(0).setAnimation(FadeOut);
-                        mRelative_desc.getChildAt(0).setVisibility(View.INVISIBLE);
-                        RelativeLayout mRelative_data = (RelativeLayout) grid3_data.getChildAt(i);
-                        mRelative_data.getChildAt(0).setAnimation(FadeIn);
-                        mRelative_data.getChildAt(0).setVisibility(View.VISIBLE);
-                    }
-                    mGrid3_isHidden = false;
-                }
-            }
-        });
-
         return view;
     }
 
@@ -188,7 +145,6 @@ public class HourlyForecastFragment extends Fragment{
 
         try {
             int i = 0,k=0;
-            int mGrid1_starting_position;
             int mGrid2_starting_position;
             int mGrid3_starting_position;
             String[] mDateForHeading = new String[3];
@@ -221,11 +177,10 @@ public class HourlyForecastFragment extends Fragment{
                 }
                 i++;
             }
-            mGrid1_starting_position = k;
-            mGrid2_starting_position = k+8;
-            mGrid3_starting_position = k+16;
+            mGrid2_starting_position = k + 8;
+            mGrid3_starting_position = k + 16;
             int x = 0;
-            while(i <= k+16){
+            while(i <= mGrid2_starting_position){
                 String[] flag_date = new String[2];
                 flag_date = mJsonArray.getJSONObject(i).getString("dt_txt").split(" ");
                 mDateForHeading[x] = flag_date[0];
@@ -235,11 +190,10 @@ public class HourlyForecastFragment extends Fragment{
             i=k;
             mDayDateGrid1.setText(mDate.formatDate(mDateForHeading[0]));
             mDayDateGrid2.setText(mDate.formatDate(mDateForHeading[1]));
-            mDayDateGrid3.setText(mDate.formatDate(mDateForHeading[2]));
 
             int j = 0;
-            for(x = i; x < 24+k; x++) {
-                if(j == 8 || j == 16)
+            for(x = i; x < 16+k; x++) {
+                if(j == 8)
                     j = 0;
                 String[] flag_date = new String[2];
                 flag_date = mJsonArray.getJSONObject(x).getString("dt_txt").split(" ");
@@ -258,17 +212,11 @@ public class HourlyForecastFragment extends Fragment{
                     temp_grid2[j] = String.valueOf(flag_temp2) + (char) 0x00B0 + 'C';
                     add_images(mParse.getArrayJSONInt(temp_mJson,"weather","id"),j,mImage_grid2);
                 }
-                else {
-                    time_grid3[j] = mDate.formatTime(flag_date[1]);
-                    double temp3 = mParse.getObjectJsonDouble(temp_mJson,"main","temp");
-                    int flag_temp3 = (int) (temp3-273.15+0.5);
-                    temp_grid3[j] = String.valueOf(flag_temp3)+(char) 0x00B0+ 'C';
-                    add_images(mParse.getArrayJSONInt(temp_mJson,"weather","id"),j,mImage_grid3);
-                }
                 j++;
             }
 
         } catch (JSONException e) {
+            Toast.makeText(getActivity(),R.string.inappropriate_data,Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
