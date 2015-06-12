@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.developer.abhishek.weather_report" >
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/CustomActionBarTheme" >
+        <activity
+            android:name=".EnterLocation"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.developer.abhishek.weather_report.WeatherConditionsActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:parentActivityName="com.developer.abhishek.weather_report.EnterLocation">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.developer.abhishek.weather_report.EnterLocation"/>
+        </activity>
+        <activity android:name="com.developer.abhishek.weather_report.InstructionsActivity"
+            android:label="Weather"
+            android:parentActivityName="com.developer.abhishek.weather_report.WeatherConditionsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.developer.abhishek.weather_report.WeatherConditionsActivity"/>
+        </activity>
+    </application>
+
+</manifest>
