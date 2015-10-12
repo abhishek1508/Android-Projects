@@ -1,4 +1,4 @@
-package com.developer.abhishek.weather_report;
+package com.developer.abhishek.weatherapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,11 +7,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -48,7 +50,7 @@ public class DownloadWeather extends AsyncTask<String, Void, WrapperWeatherData>
          * Show the progress dialog and appropriate messages prior to starting
          * another thread via AsyncTask.
          */
-        mProgress = ProgressDialog.show(mContext,"Downloading","Please Wait");
+        mProgress = ProgressDialog.show(mContext, "Downloading", "Please Wait");
     }
 
     @Override
@@ -61,9 +63,10 @@ public class DownloadWeather extends AsyncTask<String, Void, WrapperWeatherData>
         WrapperWeatherData mWrapper = new WrapperWeatherData();
         mWrapper.mCity = mCityEntered;
         for(String mWeatherUpdates : params) {
-            Log.d(mDebug,"mWeatherUpdates: "+ mWeatherUpdates);
+            mWeatherUpdates = mWeatherUpdates+"&appid=83e8589818d74797a4d7cd2d9fb911e8";
+            Log.d(mDebug, "mWeatherUpdates: " + mWeatherUpdates);
             try {
-                mUrl = new URL(String.format(mWeatherUpdates,mCityEntered));
+                mUrl = new URL(String.format(mWeatherUpdates, mCityEntered));
             } catch (MalformedURLException e) {
                 Log.d(mDebug, "Code jumped to catch due to malformed URL passed " + e);
             }
@@ -71,12 +74,24 @@ public class DownloadWeather extends AsyncTask<String, Void, WrapperWeatherData>
             if (mUrl != null) {
                 try {
                     mConnection = (HttpURLConnection) mUrl.openConnection();
+                    mConnection.setRequestMethod("GET");
+                    mConnection.setDoInput(true);
+                    mConnection.setDoOutput(true);
+
                     Log.d(mDebug, "The object mConnection formed is: " + mConnection);
-                    if (mConnection != null)
-                        mConnection.addRequestProperty("x-api-key", "2222");
+                    /*if (mConnection != null)
+                        mConnection.setRequestProperty("x-api-key", "2222");
                     else
-                        Log.d(mDebug, "Check for proper initialization of mConnection as it is null");
-                    BufferedReader inputReader = new BufferedReader(new InputStreamReader(mConnection.getInputStream()));
+                        Log.d(mDebug, "Check for proper initialization of mConnection as it is null");*/
+                    mConnection.connect();
+                    InputStream in;
+                    int status = mConnection.getResponseCode();
+
+                    if(status >= HttpStatus.SC_BAD_REQUEST)
+                        in = mConnection.getErrorStream();
+                    else
+                        in = mConnection.getInputStream();
+                    BufferedReader inputReader = new BufferedReader(new InputStreamReader(in));
                     StringBuffer buf = new StringBuffer(2048);
                     String temp = "";
                     while ((temp = inputReader.readLine()) != null) {
@@ -140,7 +155,7 @@ public class DownloadWeather extends AsyncTask<String, Void, WrapperWeatherData>
                 mContext.startActivity(intent);
             }
             else
-                Toast.makeText(mContext,"Weather for the city could not be retrieved",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Weather for the city could not be retrieved", Toast.LENGTH_SHORT).show();
         }
         else {
             mProgress.dismiss();
